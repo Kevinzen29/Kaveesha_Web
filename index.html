@@ -826,6 +826,256 @@
     100% { transform: translateX(100%); }
   }
 
+  /* ===== CHATBOT ===== */
+  .chatbot-shell {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 250;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+  }
+
+  .chatbot-panel {
+    width: min(360px, calc(100vw - 32px));
+    background: rgba(255,255,255,0.94);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 24px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.14);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+    transform-origin: bottom right;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .chatbot-shell.open .chatbot-panel {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  .chatbot-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 18px 14px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .chatbot-title {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .chatbot-kicker {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    opacity: 0.45;
+  }
+
+  .chatbot-name {
+    font-size: 13px;
+    letter-spacing: 0.08em;
+  }
+
+  .chatbot-status {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    opacity: 0.5;
+  }
+
+  .chatbot-close {
+    border: 0;
+    background: transparent;
+    color: var(--black);
+    font-family: var(--mono);
+    font-size: 16px;
+    line-height: 1;
+    cursor: none;
+    padding: 4px;
+  }
+
+  .chatbot-messages {
+    padding: 18px;
+    max-height: 360px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .chatbot-message {
+    max-width: 88%;
+    border-radius: 18px;
+    padding: 12px 14px;
+    font-size: 11px;
+    line-height: 1.75;
+    letter-spacing: 0.03em;
+  }
+
+  .chatbot-message.bot {
+    align-self: flex-start;
+    background: #f6f1e8;
+    color: var(--black);
+  }
+
+  .chatbot-message.user {
+    align-self: flex-end;
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .chatbot-suggestions {
+    padding: 0 18px 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .chatbot-compose {
+    padding: 0 18px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .chatbot-input {
+    width: 100%;
+    min-height: 88px;
+    resize: vertical;
+    border: 1px solid rgba(0,0,0,0.12);
+    border-radius: 18px;
+    padding: 14px 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.6;
+    letter-spacing: 0.03em;
+    color: var(--black);
+    background: #fff;
+    outline: none;
+  }
+
+  .chatbot-input:focus {
+    border-color: #f1c983;
+  }
+
+  .chatbot-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .chatbot-note {
+    font-size: 9px;
+    letter-spacing: 0.07em;
+    opacity: 0.45;
+    line-height: 1.5;
+  }
+
+  .chatbot-send {
+    border: 0;
+    border-radius: 999px;
+    background: var(--black);
+    color: var(--white);
+    padding: 11px 16px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    cursor: none;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  .chatbot-send:hover {
+    transform: translateY(-1px);
+    opacity: 0.92;
+  }
+
+  .chatbot-chip {
+    border: 1px solid rgba(0,0,0,0.1);
+    background: #fff;
+    color: var(--black);
+    border-radius: 999px;
+    padding: 10px 12px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    cursor: none;
+    transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+  }
+
+  .chatbot-chip:hover {
+    background: #f1c983;
+    border-color: #f1c983;
+    transform: translateY(-1px);
+  }
+
+  .chatbot-toggle {
+    border: 0;
+    border-radius: 999px;
+    background: var(--black);
+    color: var(--white);
+    padding: 14px 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.2);
+    cursor: none;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  .chatbot-toggle:hover {
+    transform: translateY(-2px);
+    opacity: 0.92;
+  }
+
+  .chatbot-toggle-badge {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #f1c983;
+    color: var(--black);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .chatbot-toggle-badge svg {
+    width: 24px;
+    height: 28px;
+    display: block;
+  }
+
+  .chatbot-toggle-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+  }
+
+  .chatbot-toggle-copy strong {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+  }
+
+  .chatbot-toggle-copy span {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    opacity: 0.65;
+  }
+
   /* ===== PAGE TRANSITIONS ===== */
   .section-transition {
     opacity: 0;
@@ -943,6 +1193,18 @@
     .hero-projects { display: none; }
     .skill-item { grid-template-columns: 40px 1fr; }
     .skill-desc { display: none; }
+    .chatbot-shell {
+      right: 16px;
+      bottom: 16px;
+      left: 16px;
+      align-items: stretch;
+    }
+    .chatbot-panel {
+      width: 100%;
+    }
+    .chatbot-toggle {
+      justify-content: center;
+    }
   }
 
   /* Smooth section scroll — no snap, it fights sticky */
@@ -1262,6 +1524,7 @@
     <div class="contact-left">
       <p class="contact-label">Let's Collaborate</p>
       <a href="mailto:kaveeshac29@gmail.com" class="contact-email">↳ kaveeshac29@gmail.com</a>
+      <a href="tel:0714341232" class="contact-email">↳ 0714341232</a>
     </div>
 
     <!-- CENTER: KC logo watermark -->
@@ -1281,9 +1544,9 @@
     <div class="contact-right">
       <div class="social-list">
         <a href="#" class="social-item"><span class="social-num">[01]</span>TWITTER</a>
-        <a href="#" class="social-item"><span class="social-num">[02]</span>LINKEDIN</a>
-        <a href="#" class="social-item"><span class="social-num">[03]</span>DRIBBLE</a>
-        <a href="#" class="social-item"><span class="social-num">[04]</span>INSTAGRAM</a>
+        <a href="https://www.linkedin.com/in/kaveesha-chaveed-361b78204/" class="social-item" target="_blank" rel="noopener noreferrer"><span class="social-num">[02]</span>LINKEDIN</a>
+        <a href="https://dribbble.com/KaveeshaChaveed" class="social-item" target="_blank" rel="noopener noreferrer"><span class="social-num">[03]</span>DRIBBLE</a>
+        <a href="https://www.instagram.com/chaveed_/" class="social-item" target="_blank" rel="noopener noreferrer"><span class="social-num">[04]</span>INSTAGRAM</a>
       </div>
     </div>
 
@@ -1303,6 +1566,50 @@
     <span>Kaveesha Chaveed — Product Designer</span>
     <span>Kaveesha Chaveed — Product Designer</span>
   </div>
+</div>
+
+<div class="chatbot-shell" id="chatbotShell">
+  <div class="chatbot-panel" id="chatbotPanel">
+    <div class="chatbot-header">
+      <div class="chatbot-title">
+        <span class="chatbot-kicker">PORTFOLIO ASSISTANT</span>
+        <span class="chatbot-name">Ask about Kaveesha's work</span>
+      </div>
+      <button class="chatbot-close" id="chatbotClose" aria-label="Close chat">×</button>
+    </div>
+    <div class="chatbot-messages" id="chatbotMessages">
+      <div class="chatbot-message bot">
+        Hi, I'm Kaveesha's portfolio assistant. Ask about projects, skills, availability, or how to get in touch.
+      </div>
+    </div>
+    <div class="chatbot-suggestions" id="chatbotSuggestions">
+      <button class="chatbot-chip" data-chatbot-question="Tell me about Tradie Trek">Tradie Trek</button>
+      <button class="chatbot-chip" data-chatbot-question="Tell me about Jungle">Jungle</button>
+      <button class="chatbot-chip" data-chatbot-question="What services does Kaveesha offer?">Services</button>
+      <button class="chatbot-chip" data-chatbot-question="Is Kaveesha available for work?">Availability</button>
+      <button class="chatbot-chip" data-chatbot-question="How can I contact Kaveesha?">Contact</button>
+    </div>
+    <div class="chatbot-compose">
+      <textarea class="chatbot-input" id="chatbotInput" placeholder="Write your message here..."></textarea>
+      <div class="chatbot-actions">
+        <p class="chatbot-note">This sends through the visitor's email app to `kaveeshac29@gmail.com`.</p>
+        <button class="chatbot-send" id="chatbotSend">SEND</button>
+      </div>
+    </div>
+  </div>
+  <button class="chatbot-toggle" id="chatbotToggle" aria-expanded="false" aria-controls="chatbotPanel">
+    <span class="chatbot-toggle-badge" aria-hidden="true">
+      <svg viewBox="0 0 380 441" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M106.473 327.222L54.6135 360.266L188.164 440.121L380 327.222V247.367H325.845V298.768L188.164 377.246L106.473 327.222Z" fill="currentColor"/>
+        <path d="M378.598 109.686L188.616 0L55.7627 76.7029L107.85 106.776L188.616 60.1455L327.681 140.435V190.918H378.598V109.686Z" fill="currentColor"/>
+        <path d="M51.6687 297.85L0 327.681V108.309L51.6687 138.14V203.768L187.246 125.492L243.237 157.818L135.828 219.831L243.237 281.843L187.246 314.17L51.6687 235.894V297.85Z" fill="currentColor"/>
+      </svg>
+    </span>
+    <span class="chatbot-toggle-copy">
+      <strong>CHAT WITH ME</strong>
+      <span>Projects, skills, contact</span>
+    </span>
+  </button>
 </div>
 
 <script>
@@ -1399,6 +1706,126 @@
     });
   }, { threshold: 0.1 });
   sectionTransitions.forEach(el => ioSt.observe(el));
+
+  // ===== CHATBOT =====
+  const chatbotShell = document.getElementById('chatbotShell');
+  const chatbotToggle = document.getElementById('chatbotToggle');
+  const chatbotClose = document.getElementById('chatbotClose');
+  const chatbotMessages = document.getElementById('chatbotMessages');
+  const chatbotSuggestions = document.getElementById('chatbotSuggestions');
+  const chatbotInput = document.getElementById('chatbotInput');
+  const chatbotSend = document.getElementById('chatbotSend');
+
+  const chatbotKnowledge = [
+    {
+      match: ['tradie', 'tradie trek'],
+      answer: 'Tradie Trek is a mobile app design project focused on turning fragmented experiences into a clearer product journey. It highlights mobile UX, animation, research, and structured visual storytelling.'
+    },
+    {
+      match: ['jungle'],
+      answer: 'Jungle is a travel-focused product concept built around discovery and booking. The project centers on intuitive mobile UX, a stronger brand feel, and a cleaner user journey from exploration to action.'
+    },
+    {
+      match: ['services', 'offer', 'skills', 'what do you do'],
+      answer: 'Kaveesha focuses on product design, UI/UX, animation and interaction, frontend development, and visual design. The portfolio is built around crafting intuitive, polished digital experiences.'
+    },
+    {
+      match: ['availability', 'available', 'hire', 'freelance', 'work together'],
+      answer: 'You can reach out for collaborations through kaveeshac29@gmail.com or call 0714341232. The best next step is to share your project scope, timeline, and goals.'
+    },
+    {
+      match: ['contact', 'email', 'linkedin', 'dribbble', 'instagram'],
+      answer: 'You can contact Kaveesha at kaveeshac29@gmail.com or 0714341232, and also connect on LinkedIn, Dribbble, and Instagram from the contact section.'
+    },
+    {
+      match: ['portfolio', 'homepage', 'about'],
+      answer: 'This portfolio presents Kaveesha as a product designer with 4+ years of experience building intuitive digital experiences, with featured work across product design, mobile apps, and interaction.'
+    }
+  ];
+
+  function setChatbotOpen(isOpen) {
+    if (!chatbotShell || !chatbotToggle) return;
+    chatbotShell.classList.toggle('open', isOpen);
+    chatbotToggle.setAttribute('aria-expanded', String(isOpen));
+  }
+
+  function appendChatMessage(text, role) {
+    if (!chatbotMessages) return;
+    const message = document.createElement('div');
+    message.className = `chatbot-message ${role}`;
+    message.textContent = text;
+    chatbotMessages.appendChild(message);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+  }
+
+  function getChatbotReply(question) {
+    const normalized = question.toLowerCase();
+    const match = chatbotKnowledge.find((entry) =>
+      entry.match.some((term) => normalized.includes(term))
+    );
+
+    if (match) return match.answer;
+
+    return 'I can help with project details, services, availability, or contact info. Try asking about Tradie Trek, Jungle, services, or how to get in touch.';
+  }
+
+  function askChatbot(question) {
+    appendChatMessage(question, 'user');
+
+    window.setTimeout(() => {
+      appendChatMessage(getChatbotReply(question), 'bot');
+    }, 220);
+  }
+
+  function sendChatbotMessage() {
+    if (!chatbotInput) return;
+    const message = chatbotInput.value.trim();
+    if (!message) return;
+
+    appendChatMessage(message, 'user');
+    appendChatMessage('Opening an email draft so you can send this directly to Kaveesha.', 'bot');
+
+    const subject = encodeURIComponent('Portfolio enquiry from website chatbot');
+    const body = encodeURIComponent(
+      `Hi Kaveesha,\n\n${message}\n\nName:\nEmail:\nPhone:\n`
+    );
+
+    chatbotInput.value = '';
+    window.location.href = `mailto:kaveeshac29@gmail.com?subject=${subject}&body=${body}`;
+  }
+
+  if (chatbotToggle) {
+    chatbotToggle.addEventListener('click', () => {
+      setChatbotOpen(!chatbotShell.classList.contains('open'));
+    });
+  }
+
+  if (chatbotClose) {
+    chatbotClose.addEventListener('click', () => {
+      setChatbotOpen(false);
+    });
+  }
+
+  if (chatbotSuggestions) {
+    chatbotSuggestions.querySelectorAll('[data-chatbot-question]').forEach((button) => {
+      button.addEventListener('click', () => {
+        setChatbotOpen(true);
+        askChatbot(button.getAttribute('data-chatbot-question'));
+      });
+    });
+  }
+
+  if (chatbotSend) {
+    chatbotSend.addEventListener('click', sendChatbotMessage);
+  }
+
+  if (chatbotInput) {
+    chatbotInput.addEventListener('keydown', (event) => {
+      if ((event.metaKey || event.ctrlKey) && event.key === 'Enter') {
+        sendChatbotMessage();
+      }
+    });
+  }
 
   // ===== NAV COLOR based on section =====
   const nav = document.getElementById('mainNav');
