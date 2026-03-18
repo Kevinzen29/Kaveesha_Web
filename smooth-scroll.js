@@ -1,41 +1,23 @@
 (function() {
-  var current = window.scrollY || 0;
-  var target = current;
-  var ease = 0.08;
-  var ticking = false;
+  let current = window.scrollY;
+  let target = window.scrollY;
+  let ease = 0.12;
 
-  function clamp(v, min, max) {
-    return Math.min(max, Math.max(min, v));
+  function lerp(start, end, factor) {
+    return start + (end - start) * factor;
   }
 
   function update() {
-    var diff = target - current;
-    current += diff * ease;
-    if (Math.abs(diff) < 1) current = target;
+    current = lerp(current, target, ease);
     window.scrollTo(0, current);
-    if (current !== target) {
-      requestAnimationFrame(update);
-    } else {
-      ticking = false;
-    }
+    requestAnimationFrame(update);
   }
 
-  function onWheel(e) {
-    // Only smooth scroll vertical wheel/deltaY events
-    if (!e.deltaY) return;
+  update();
+
+  window.addEventListener('wheel', (e) => {
     e.preventDefault();
-    target = clamp(target + e.deltaY, 0, document.body.scrollHeight - window.innerHeight);
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(update);
-    }
-  }
-
-  window.addEventListener('wheel', onWheel, { passive: false });
-  window.addEventListener('resize', function() {
-    target = clamp(target, 0, document.body.scrollHeight - window.innerHeight);
+    target += e.deltaY * 0.8; // Adjust sensitivity
+    target = Math.max(0, Math.min(document.body.scrollHeight - window.innerHeight, target));
   });
-
-  // Kick off the animation loop so scroll position stays in sync when the page loads.
-  requestAnimationFrame(update);
 })();
