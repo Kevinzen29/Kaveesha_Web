@@ -1,7 +1,7 @@
 (function() {
   let current = window.scrollY;
   let target = window.scrollY;
-  let ease = 0.2;
+  let ease = 1;
 
   function lerp(start, end, factor) {
     return start + (end - start) * factor;
