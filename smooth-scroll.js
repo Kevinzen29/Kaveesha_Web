@@ -1,7 +1,7 @@
 (function() {
   var current = window.scrollY || 0;
   var target = current;
-  var ease = 0.12;
+  var ease = 0.08;
   var ticking = false;
 
   function clamp(v, min, max) {
@@ -9,11 +9,15 @@
   }
 
   function update() {
-    current += (target - current) * ease;
-    if (Math.abs(target - current) < 0.5) current = target;
+    var diff = target - current;
+    current += diff * ease;
+    if (Math.abs(diff) < 1) current = target;
     window.scrollTo(0, current);
-    ticking = false;
-    requestAnimationFrame(update);
+    if (current !== target) {
+      requestAnimationFrame(update);
+    } else {
+      ticking = false;
+    }
   }
 
   function onWheel(e) {
