@@ -1,7 +1,7 @@
 (function() {
   let current = window.scrollY;
   let target = window.scrollY;
-  let ease = 0.12;
+  let ease = 0.2;
 
   function lerp(start, end, factor) {
     return start + (end - start) * factor;
@@ -17,7 +17,7 @@
 
   window.addEventListener('wheel', (e) => {
     e.preventDefault();
-    target += e.deltaY * 0.8; // Adjust sensitivity
+    target += e.deltaY * 1.2; // Adjust sensitivity
     target = Math.max(0, Math.min(document.body.scrollHeight - window.innerHeight, target));
   });
 })();
