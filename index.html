@@ -906,6 +906,11 @@
     pointer-events: auto;
   }
 
+  .chatbot-shell.is-passive .chatbot-toggle,
+  .chatbot-shell.is-passive .chatbot-panel {
+    pointer-events: none;
+  }
+
   .chatbot-header {
     display: flex;
     align-items: center;
@@ -2203,6 +2208,8 @@
   const chatbotSuggestions = document.getElementById('chatbotSuggestions');
   const chatbotInput = document.getElementById('chatbotInput');
   const chatbotSend = document.getElementById('chatbotSend');
+  const workSection = document.getElementById('work');
+  let chatbotTouchGuardActive = false;
 
   const chatbotKnowledge = [
     {
@@ -2239,6 +2246,13 @@
     if (!chatbotShell || !chatbotToggle) return;
     chatbotShell.classList.toggle('open', isOpen);
     chatbotToggle.setAttribute('aria-expanded', String(isOpen));
+    chatbotShell.classList.toggle('is-passive', chatbotTouchGuardActive && !isOpen);
+  }
+
+  function setChatbotTouchGuard(isActive) {
+    if (!chatbotShell || !isTouchDevice || window.innerWidth > 900) return;
+    chatbotTouchGuardActive = isActive;
+    chatbotShell.classList.toggle('is-passive', isActive && !chatbotShell.classList.contains('open'));
   }
 
   function appendChatMessage(text, role, isHtml = false) {
@@ -2330,6 +2344,16 @@
         sendChatbotMessage();
       }
     });
+  }
+
+  if (workSection && chatbotShell && isTouchDevice) {
+    const ioChatbotGuard = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        setChatbotTouchGuard(entry.isIntersecting);
+      });
+    }, { threshold: 0.15 });
+
+    ioChatbotGuard.observe(workSection);
   }
 
   // ===== NAV COLOR based on section =====
