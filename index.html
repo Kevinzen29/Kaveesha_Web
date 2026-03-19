@@ -1460,6 +1460,7 @@
     .work-card-wrap {
       height: auto;
       width: 100%;
+      z-index: 1;
     }
     .work-card {
       max-width: 100%;
@@ -1468,13 +1469,15 @@
       border-radius: 18px;
     }
     .work-info-panel {
+      position: relative;
       width: min(100%, 360px);
       min-height: 210px;
+      z-index: 3;
     }
     .work-info-slide {
       top: 0;
       transform: translateY(10px);
-      padding-right: 32px;
+      padding-right: 0;
     }
     .work-info-slide.active {
       transform: translateY(0);
@@ -1491,6 +1494,13 @@
     }
     .work-dots {
       right: 16px;
+      z-index: 2;
+    }
+    .work-view-link {
+      position: relative;
+      z-index: 4;
+      pointer-events: auto;
+      touch-action: manipulation;
     }
     .contact-content {
       grid-template-columns: 1fr;
@@ -2464,22 +2474,35 @@
   }
 
   // ===== WORK page transition =====
+  function handleWorkProjectNavigation(event) {
+    const link = event.currentTarget;
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || !pageLoader) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (link.dataset.navigating === 'true') return;
+    link.dataset.navigating = 'true';
+
+    try {
+      sessionStorage.setItem('skipCaseStudyLoader', '1');
+    } catch (error) {}
+
+    pageLoader.classList.remove('is-hidden');
+    pageLoader.classList.add('is-ready', 'is-transitioning');
+
+    window.setTimeout(() => {
+      window.location.href = href;
+    }, 300);
+  }
+
   document.querySelectorAll('.work-view-link').forEach((link) => {
-    link.addEventListener('click', (e) => {
-      const href = link.getAttribute('href');
-      if (!href || href.startsWith('#') || !pageLoader) return;
+    link.addEventListener('click', handleWorkProjectNavigation);
 
-      e.preventDefault();
-      try {
-        sessionStorage.setItem('skipCaseStudyLoader', '1');
-      } catch (error) {}
-      pageLoader.classList.remove('is-hidden');
-      pageLoader.classList.add('is-ready', 'is-transitioning');
-
-      window.setTimeout(() => {
-        window.location.href = href;
-      }, 450);
-    });
+    if (isTouchDevice) {
+      link.addEventListener('touchend', handleWorkProjectNavigation, { passive: false });
+    }
   });
 </script>
 </body>
