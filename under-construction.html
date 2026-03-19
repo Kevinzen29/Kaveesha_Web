@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="Images/faveicon.svg">
+<title>Under Construction — Kaveesha Chaveed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #ffffff;
+    --gold: #f1c983;
+    --mono: 'IBM Plex Mono', monospace;
+    --serif: 'Playfair Display', serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at top left, rgba(241, 201, 131, 0.2), transparent 30%),
+      linear-gradient(180deg, #101010 0%, #050505 100%);
+    color: var(--white);
+    font-family: var(--mono);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+  }
+
+  .construction-card {
+    width: min(680px, 100%);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 28px;
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(16px);
+    padding: 36px;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.35);
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: rgba(241, 201, 131, 0.14);
+    color: var(--gold);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(46px, 8vw, 88px);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    margin-bottom: 18px;
+  }
+
+  p {
+    max-width: 520px;
+    font-size: 13px;
+    line-height: 1.85;
+    color: rgba(255,255,255,0.72);
+    margin-bottom: 28px;
+  }
+
+  .project-name {
+    color: var(--gold);
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .link-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 18px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    transition: transform 0.25s ease, opacity 0.25s ease, background-color 0.25s ease;
+  }
+
+  .link-btn.primary {
+    background: var(--gold);
+    color: var(--black);
+  }
+
+  .link-btn.secondary {
+    border: 1px solid rgba(255,255,255,0.14);
+    color: var(--white);
+  }
+
+  .link-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.94;
+  }
+
+  @media (max-width: 720px) {
+    .construction-card {
+      padding: 28px 22px;
+    }
+  }
+</style>
+</head>
+<body>
+  <main class="construction-card">
+    <div class="eyebrow">PORTFOLIO UPDATE IN PROGRESS</div>
+    <h1><span class="project-name" id="projectName">This project</span><br>is under construction.</h1>
+    <p id="projectCopy">The case study is currently being refined. A proper project page with visuals, process, and outcomes will be added soon.</p>
+    <div class="links">
+      <a class="link-btn primary" href="index.html#work">BACK TO WORK</a>
+      <a class="link-btn secondary" href="mailto:kaveeshac29@gmail.com">CONTACT KAVEESHA</a>
+    </div>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const project = params.get('project');
+    const projectName = document.getElementById('projectName');
+    const projectCopy = document.getElementById('projectCopy');
+
+    const content = {
+      jungle: {
+        name: 'Jungle',
+        copy: 'The Jungle case study is still being shaped. The final page will include the product story, key flows, and the design thinking behind it.'
+      },
+      ewura: {
+        name: 'Ewura Pay',
+        copy: 'The Ewura Pay case study is currently in progress. A full breakdown with context, interface decisions, and product outcomes will be published soon.'
+      },
+      playmade: {
+        name: 'PlayMade',
+        copy: 'The PlayMade case study is not live yet. The final version will include the concept, interaction approach, and the visual system behind the work.'
+      }
+    };
+
+    if (project && content[project]) {
+      projectName.textContent = content[project].name;
+      projectCopy.textContent = content[project].copy;
+      document.title = `${content[project].name} — Under Construction`;
+    }
+  </script>
+</body>
+</html>
