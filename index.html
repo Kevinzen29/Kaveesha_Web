@@ -99,18 +99,27 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    transition: opacity 0.3s;
+    transition: opacity 0.3s, color 0.3s;
     position: relative;
   }
 
   .nav-link:hover { 
-    opacity: 0.6; 
-    border-bottom: 1px solid var(--black);
+    color: var(--gold);
   }
 
   .nav-num {
     font-size: 9px;
     opacity: 0.5;
+    transition: opacity 0.3s, color 0.3s;
+  }
+
+  .nav-link:hover .nav-num,
+  .nav-link.active .nav-num {
+    opacity: 1;
+  }
+
+  .nav-link.active {
+    color: inherit;
   }
 
   .nav-pill {
@@ -389,12 +398,12 @@
 
   /* Moto — top-left, above the AB letters, bottom edge at text midline */
   .about-photo-1 {
-    width: 175px;
-    height: 195px;
+    width: 215px;
+    height: 240px;
     top: 50%;
-    left: 21%;
+    left: 19%;
     transform: translateY(-100%);  /* bottom of image sits at 50% (text center) */
-    margin-top: -30px;             /* nudge up slightly above text */
+    margin-top: -38px;             /* nudge up slightly above text */
   }
 
   /* Portrait — center, straddles the full ABOUT text */
@@ -1707,13 +1716,6 @@
   .arrow { display: inline-block; transition: transform 0.3s; }
   .work-view-link:hover .arrow { transform: translateX(6px); }
 
-  /* Nav section detection */
-  .nav-link.active .nav-num-wrap {
-    background: var(--gold);
-    color: #fff;
-    border-radius: 20px;
-    padding: 4px 10px;
-  }
 </style>
 </head>
 <body>
@@ -2373,9 +2375,15 @@
         document.body.className = isDark ? 'dark-section' : '';
 
         // Active nav highlight
-        document.querySelectorAll('.nav-link').forEach(l => l.style.opacity = '0.4');
+        document.querySelectorAll('.nav-link').forEach((l) => {
+          l.style.opacity = '0.4';
+          l.classList.remove('active');
+        });
         const activeLink = document.getElementById('nav-' + (id === 'skills' ? 'info' : id));
-        if (activeLink) activeLink.style.opacity = '1';
+        if (activeLink) {
+          activeLink.style.opacity = '1';
+          activeLink.classList.add('active');
+        }
       }
     });
   }, { threshold: 0.1 });
