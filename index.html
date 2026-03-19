@@ -550,6 +550,10 @@
     position: relative;
   }
 
+  .work-card-wrap.is-mobile-link {
+    cursor: pointer;
+  }
+
   .work-card {
     width: 100%;
     max-width: 480px;
@@ -1886,7 +1890,7 @@
       <div class="work-layout">
 
         <!-- LEFT: image card with stacked slides -->
-        <div class="work-card-wrap">
+        <div class="work-card-wrap" id="workCardWrap" aria-label="Open project">
           <div class="work-card">
 
             <div class="work-card-slide tradie active" data-index="0">
@@ -2528,6 +2532,32 @@
       link.addEventListener('touchend', handleWorkProjectNavigation, { passive: false });
     }
   });
+
+  const workCardWrap = document.getElementById('workCardWrap');
+
+  function handleWorkCardNavigation(event) {
+    if (!isTouchDevice || window.innerWidth > 900) return;
+    if (event.target.closest('a, button')) return;
+
+    const activeProjectLink = document.querySelector('.work-info-slide.active .work-view-link');
+    if (!activeProjectLink) return;
+
+    if (event.cancelable) {
+      event.preventDefault();
+    }
+
+    handleWorkProjectNavigation({
+      currentTarget: activeProjectLink,
+      preventDefault() {},
+      stopPropagation() {}
+    });
+  }
+
+  if (workCardWrap && isTouchDevice) {
+    workCardWrap.classList.add('is-mobile-link');
+    workCardWrap.addEventListener('click', handleWorkCardNavigation);
+    workCardWrap.addEventListener('touchend', handleWorkCardNavigation, { passive: false });
+  }
 </script>
 </body>
 </html>
