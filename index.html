@@ -1533,6 +1533,9 @@
     .work-scroll-track {
       display: none;
     }
+    #work {
+      display: none;
+    }
     .work-mobile-list {
       display: grid;
       gap: 0;
@@ -1572,28 +1575,7 @@
       display: none;
     }
     .chatbot-shell {
-      right: 16px;
-      bottom: 16px;
-      left: 16px;
-      align-items: stretch;
-    }
-    .chatbot-panel {
-      width: 100%;
-    }
-    .chatbot-toggle {
-      justify-content: center;
-      width: 100%;
-      padding: 14px 16px;
-    }
-    .chatbot-actions {
-      flex-direction: column;
-      align-items: stretch;
-    }
-    .chatbot-note {
-      order: 2;
-    }
-    .chatbot-send {
-      width: 100%;
+      display: none;
     }
   }
 
@@ -2268,6 +2250,7 @@
   const chatbotSend = document.getElementById('chatbotSend');
   const workSection = document.getElementById('work');
   const workMobileList = document.querySelector('.work-mobile-list');
+  const workMobileCards = document.querySelectorAll('.work-mobile-card');
   let chatbotTouchGuardActive = false;
 
   const chatbotKnowledge = [
@@ -2594,6 +2577,25 @@
   document.querySelectorAll('.work-view-link').forEach((link) => {
     link.addEventListener('click', handleWorkProjectNavigation);
   });
+
+  if (isTouchDevice && workMobileCards.length) {
+    const handleMobileWorkCardNavigation = (event) => {
+      const card = event.currentTarget;
+      const href = card.getAttribute('href');
+      if (!href) return;
+
+      if (event.cancelable) {
+        event.preventDefault();
+      }
+
+      window.location.href = href;
+    };
+
+    workMobileCards.forEach((card) => {
+      card.addEventListener('click', handleMobileWorkCardNavigation);
+      card.addEventListener('touchend', handleMobileWorkCardNavigation, { passive: false });
+    });
+  }
 
   const workCardWrap = document.getElementById('workCardWrap');
 
