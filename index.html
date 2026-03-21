@@ -35,6 +35,11 @@
     overflow-x: hidden;
   }
 
+  a,
+  button {
+    touch-action: manipulation;
+  }
+
   /* NAV */
   nav {
     position: fixed;
@@ -2419,7 +2424,11 @@
   function handleWorkProjectNavigation(event) {
     const link = event.currentTarget;
     const href = link.getAttribute('href');
-    if (!href || href.startsWith('#') || !pageLoader) return;
+    if (!href || href.startsWith('#')) return;
+
+    if (isTouchDevice || !pageLoader) {
+      return;
+    }
 
     event.preventDefault();
     event.stopPropagation();
@@ -2441,36 +2450,12 @@
 
   document.querySelectorAll('.work-view-link').forEach((link) => {
     link.addEventListener('click', handleWorkProjectNavigation);
-
-    if (isTouchDevice) {
-      link.addEventListener('touchend', handleWorkProjectNavigation, { passive: false });
-    }
   });
 
   const workCardWrap = document.getElementById('workCardWrap');
 
-  function handleWorkCardNavigation(event) {
-    if (!isTouchDevice || window.innerWidth > 900) return;
-    if (event.target.closest('a, button')) return;
-
-    const activeProjectLink = document.querySelector('.work-info-slide.active .work-view-link');
-    if (!activeProjectLink) return;
-
-    if (event.cancelable) {
-      event.preventDefault();
-    }
-
-    handleWorkProjectNavigation({
-      currentTarget: activeProjectLink,
-      preventDefault() {},
-      stopPropagation() {}
-    });
-  }
-
   if (workCardWrap && isTouchDevice) {
     workCardWrap.classList.add('is-mobile-link');
-    workCardWrap.addEventListener('click', handleWorkCardNavigation);
-    workCardWrap.addEventListener('touchend', handleWorkCardNavigation, { passive: false });
   }
 </script>
 </body>
