@@ -32,33 +32,8 @@
     font-family: var(--mono);
     background: var(--white);
     color: var(--black);
-    cursor: none;
     overflow-x: hidden;
   }
-
-  /* CUSTOM CURSOR */
-  .cursor {
-    position: fixed;
-    width: 8px; height: 8px;
-    background: var(--black);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transition: transform 0.1s ease;
-    transform: translate(-50%, -50%);
-  }
-  .cursor-follower {
-    position: fixed;
-    width: 32px; height: 32px;
-    border: 1px solid var(--black);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9998;
-    transition: transform 0.25s ease, width 0.3s, height 0.3s, opacity 0.3s;
-    transform: translate(-50%, -50%);
-  }
-  body.dark-section .cursor { background: var(--white); }
-  body.dark-section .cursor-follower { border-color: var(--white); }
 
   /* NAV */
   nav {
@@ -164,7 +139,6 @@
     padding: 0;
     align-items: center;
     justify-content: center;
-    cursor: none;
   }
 
   .nav-toggle-lines {
@@ -958,7 +932,6 @@
     font-family: var(--mono);
     font-size: 16px;
     line-height: 1;
-    cursor: none;
     padding: 4px;
   }
 
@@ -1050,7 +1023,6 @@
     font-family: var(--mono);
     font-size: 10px;
     letter-spacing: 0.1em;
-    cursor: none;
     transition: transform 0.25s ease, opacity 0.25s ease;
   }
 
@@ -1068,7 +1040,6 @@
     font-family: var(--mono);
     font-size: 10px;
     letter-spacing: 0.08em;
-    cursor: none;
     transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
   }
 
@@ -1088,7 +1059,6 @@
     align-items: center;
     gap: 12px;
     box-shadow: 0 18px 40px rgba(0,0,0,0.2);
-    cursor: none;
     transition: transform 0.25s ease, opacity 0.25s ease;
   }
 
@@ -1214,8 +1184,6 @@
   }
 
   /* HOVER EFFECTS */
-  a { cursor: none; }
-
   /* Marquee */
   .marquee-wrap {
     overflow: hidden;
@@ -1245,9 +1213,6 @@
 
   /* RESPONSIVE */
   @media (max-width: 900px) {
-    body {
-      cursor: auto;
-    }
     nav {
       padding: 18px 16px;
       align-items: center;
@@ -1648,22 +1613,6 @@
   }
 
   @media (hover: none), (pointer: coarse) {
-    body,
-    a,
-    button,
-    .chatbot-chip,
-    .chatbot-send,
-    .chatbot-close,
-    .chatbot-toggle {
-      cursor: auto;
-    }
-    .cursor,
-    .cursor-follower {
-      display: none !important;
-    }
-    .nav-toggle {
-      cursor: auto;
-    }
     .hero-proj-thumb:hover,
     .social-item:hover,
     .work-view-link:hover,
@@ -1719,8 +1668,6 @@
   <div class="loader-text">KAVEESHA CHAVEED</div>
 </div>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-follower" id="cursorFollower"></div>
 <div class="scroll-progress" id="scrollProgress"></div>
 
 <!-- NAV -->
@@ -2119,42 +2066,6 @@
         });
       });
     }
-  }
-
-  // ===== CURSOR =====
-  const cursor = document.getElementById('cursor');
-  const follower = document.getElementById('cursorFollower');
-  let mouseX = 0, mouseY = 0, followerX = 0, followerY = 0;
-
-  if (!isTouchDevice && cursor && follower) {
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      cursor.style.left = mouseX + 'px';
-      cursor.style.top = mouseY + 'px';
-    });
-
-    function animateFollower() {
-      followerX += (mouseX - followerX) * 0.12;
-      followerY += (mouseY - followerY) * 0.12;
-      follower.style.left = followerX + 'px';
-      follower.style.top = followerY + 'px';
-      requestAnimationFrame(animateFollower);
-    }
-    animateFollower();
-
-    document.querySelectorAll('a, button').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        follower.style.width = '54px';
-        follower.style.height = '54px';
-        follower.style.opacity = '0.5';
-      });
-      el.addEventListener('mouseleave', () => {
-        follower.style.width = '32px';
-        follower.style.height = '32px';
-        follower.style.opacity = '1';
-      });
-    });
   }
 
   // ===== LIVE CLOCK =====
