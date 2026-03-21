@@ -490,6 +490,109 @@
     position: relative;
   }
 
+  .work-mobile-list {
+    display: none;
+    position: relative;
+    z-index: 20;
+    pointer-events: auto;
+  }
+
+  .work-mobile-card {
+    display: block;
+    position: relative;
+    z-index: 1;
+    pointer-events: auto;
+    -webkit-tap-highlight-color: rgba(255,255,255,0.12);
+    touch-action: manipulation;
+    text-decoration: none;
+    color: var(--white);
+    border: 0;
+    border-radius: 24px;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    overflow: hidden;
+  }
+
+  .work-mobile-card + .work-mobile-card {
+    margin-top: 22px;
+  }
+
+  .work-mobile-visual {
+    width: 100%;
+    aspect-ratio: 1 / 1.02;
+    min-height: 0;
+    border-radius: 24px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 14px;
+    pointer-events: none;
+  }
+
+  .work-mobile-meta {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+    min-width: 0;
+    padding: 0 4px 2px;
+  }
+
+  .work-mobile-num {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .work-mobile-title {
+    font-family: var(--mono);
+    font-size: clamp(26px, 7.6vw, 36px);
+    letter-spacing: -0.02em;
+    line-height: 0.98;
+  }
+
+  .work-mobile-tags {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .work-mobile-tag {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.45);
+  }
+
+  .work-mobile-cta {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.9);
+    padding-top: 8px;
+  }
+
+  .work-mobile-card:nth-child(1) .work-mobile-visual { background:#3a3aff; }
+  .work-mobile-card:nth-child(2) .work-mobile-visual { background:#1a5c30; }
+  .work-mobile-card:nth-child(3) .work-mobile-visual { background:#1a2b7c; }
+  .work-mobile-card:nth-child(4) .work-mobile-visual { background:#3d0a14; }
+
+  .work-mobile-card:nth-child(2) .jungle-logo {
+    font-size: clamp(26px, 7vw, 34px);
+  }
+
+  .work-mobile-card:nth-child(2) .jungle-sub {
+    font-size: 11px;
+    margin-top: 6px;
+  }
+
+  .work-mobile-card:nth-child(4) .playmade-logo {
+    padding: 0;
+    transform: scale(0.94);
+  }
+
   /* Scroll track: 4 panels worth of scroll height */
   .work-scroll-track {
     height: 400vh;
@@ -1428,62 +1531,18 @@
       margin-top: 6px;
     }
     .work-scroll-track {
-      height: 320vh;
+      display: none;
     }
-    .work-sticky {
-      height: 100svh;
-    }
-    .work-layout {
-      grid-template-columns: 1fr;
-      align-content: center;
-      justify-items: center;
-      gap: 20px;
-      padding: 88px 16px 72px;
-    }
-    .work-card-wrap {
-      height: auto;
-      width: 100%;
-      z-index: 1;
-    }
-    .work-card {
-      max-width: 100%;
-      width: min(100%, 360px);
-      aspect-ratio: 0.88;
-      border-radius: 18px;
-    }
-    .work-info-panel {
+    .work-mobile-list {
+      display: grid;
+      gap: 0;
+      background:
+        radial-gradient(circle at top left, rgba(58,58,255,0.18), transparent 36%),
+        radial-gradient(circle at top right, rgba(26,92,48,0.20), transparent 32%),
+        #0a0a14;
+      padding: 28px 16px 72px;
       position: relative;
-      width: min(100%, 360px);
-      min-height: 210px;
-      z-index: 3;
-    }
-    .work-info-slide {
-      top: 0;
-      transform: translateY(10px);
-      padding-right: 0;
-    }
-    .work-info-slide.active {
-      transform: translateY(0);
-    }
-    .work-info-slide.exit {
-      transform: translateY(-10px);
-    }
-    .work-proj-title {
-      font-size: clamp(26px, 9vw, 40px);
-      margin-bottom: 24px;
-    }
-    .work-tags {
-      margin-bottom: 28px;
-    }
-    .work-dots {
-      right: 16px;
-      z-index: 2;
-    }
-    .work-view-link {
-      position: relative;
-      z-index: 4;
-      pointer-events: auto;
-      touch-action: manipulation;
+      z-index: 20;
     }
     .contact-content {
       grid-template-columns: 1fr;
@@ -1509,9 +1568,8 @@
       padding: 16px 0;
       font-size: 11px;
     }
-    .marquee-divider,
     .marquee-wrap {
-      padding: 14px 0;
+      display: none;
     }
     .chatbot-shell {
       right: 16px;
@@ -1754,6 +1812,7 @@
       </div>
     </div>
   </div>
+
 </section>
 
 <!-- ===== INFO: ABOUT + SKILLS (one continuous black section) ===== -->
@@ -1808,6 +1867,88 @@
   </div>
 
 </section>
+
+<div class="work-mobile-list" aria-label="Projects">
+  <a href="/tradie-trek/" class="work-mobile-card">
+    <div class="work-mobile-visual" style="background:#3a3aff;">
+      <div class="work-logo-text" style="font-size:clamp(28px,4vw,54px);letter-spacing:-0.03em;">TRADIE TREK <span style="font-size:0.75em;">⇄</span></div>
+    </div>
+    <div class="work-mobile-meta">
+      <div class="work-mobile-num">[01]</div>
+      <div class="work-mobile-title">Tradie trek</div>
+      <div class="work-mobile-tags">
+        <span class="work-mobile-tag">MOBILE APP DESIGN</span>
+        <span class="work-mobile-tag">ANIMATION</span>
+      </div>
+      <div class="work-mobile-cta">VIEW PROJECT [→]</div>
+    </div>
+  </a>
+
+  <a href="/jungle/" class="work-mobile-card">
+    <div class="work-mobile-visual" style="background:#1a5c30;">
+      <div style="text-align:center;">
+        <div class="jungle-logo">Jungle 🌿</div>
+        <div class="jungle-sub">Connect. Discover. Book</div>
+      </div>
+    </div>
+    <div class="work-mobile-meta">
+      <div class="work-mobile-num">[02]</div>
+      <div class="work-mobile-title">Jungle</div>
+      <div class="work-mobile-tags">
+        <span class="work-mobile-tag">MOBILE APP DESIGN</span>
+        <span class="work-mobile-tag">ANIMATION</span>
+      </div>
+      <div class="work-mobile-cta">VIEW PROJECT [→]</div>
+    </div>
+  </a>
+
+  <a href="/under-construction/?project=ewura" class="work-mobile-card">
+    <div class="work-mobile-visual" style="background:#1a2b7c;">
+      <div class="ewura-logo-wrap">
+        <svg class="ewura-icon" viewBox="0 0 80 80" fill="none">
+          <rect x="10" y="25" width="28" height="28" rx="8" fill="#4285F4" transform="rotate(-15 24 39)"/>
+          <rect x="42" y="10" width="28" height="28" rx="8" fill="#34A853" transform="rotate(10 56 24)"/>
+          <rect x="42" y="42" width="28" height="28" rx="8" fill="#FBBC05" transform="rotate(-5 56 56)"/>
+          <rect x="10" y="42" width="28" height="28" rx="8" fill="#EA4335" transform="rotate(15 24 56)"/>
+        </svg>
+        <div class="ewura-name"><span style="color:#FBBC05;">Ewura</span> <span class="ewura-pay">Pay</span></div>
+      </div>
+    </div>
+    <div class="work-mobile-meta">
+      <div class="work-mobile-num">[03]</div>
+      <div class="work-mobile-title">Ewura Pay</div>
+      <div class="work-mobile-tags">
+        <span class="work-mobile-tag">MOBILE APP DESIGN</span>
+        <span class="work-mobile-tag">ANIMATION</span>
+      </div>
+      <div class="work-mobile-cta">VIEW PROJECT [→]</div>
+    </div>
+  </a>
+
+  <a href="/under-construction/?project=playmade" class="work-mobile-card">
+    <div class="work-mobile-visual" style="background:#3d0a14;">
+      <div class="playmade-logo">
+        <div class="playmade-icon">
+          <div class="pm-circle"></div>
+          <div class="pm-play">PLAY</div>
+        </div>
+        <div class="pm-made">
+          <div class="pm-lines"><div class="pm-line"></div><div class="pm-line"></div></div>
+          <span>MADE</span>
+        </div>
+      </div>
+    </div>
+    <div class="work-mobile-meta">
+      <div class="work-mobile-num">[04]</div>
+      <div class="work-mobile-title">PlayMade</div>
+      <div class="work-mobile-tags">
+        <span class="work-mobile-tag">MOBILE APP DESIGN</span>
+        <span class="work-mobile-tag">ANIMATION</span>
+      </div>
+      <div class="work-mobile-cta">VIEW PROJECT [→]</div>
+    </div>
+  </a>
+</div>
 
 <!-- MARQUEE DIVIDER -->
 <div class="marquee-wrap">
@@ -2126,6 +2267,7 @@
   const chatbotInput = document.getElementById('chatbotInput');
   const chatbotSend = document.getElementById('chatbotSend');
   const workSection = document.getElementById('work');
+  const workMobileList = document.querySelector('.work-mobile-list');
   let chatbotTouchGuardActive = false;
 
   const chatbotKnowledge = [
@@ -2263,14 +2405,15 @@
     });
   }
 
-  if (workSection && chatbotShell && isTouchDevice) {
+  if ((workSection || workMobileList) && chatbotShell && isTouchDevice) {
     const ioChatbotGuard = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         setChatbotTouchGuard(entry.isIntersecting);
       });
     }, { threshold: 0.15 });
 
-    ioChatbotGuard.observe(workSection);
+    if (workSection) ioChatbotGuard.observe(workSection);
+    if (workMobileList) ioChatbotGuard.observe(workMobileList);
   }
 
   // ===== NAV COLOR based on section =====
