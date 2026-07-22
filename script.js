@@ -21,38 +21,3 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.targe
 const sections=$$("main section"),links=$$(".topbar nav a");new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+e.target.id))}}),{threshold:.25}).observe;
 sections.forEach(s=>{new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+s.id))}),{threshold:.25}).observe(s)});
 if(matchMedia("(pointer:fine)").matches){let c=$(".cursor"),d=$(".cursor-dot");addEventListener("mousemove",e=>{c.style.left=e.clientX+"px";c.style.top=e.clientY+"px";d.style.left=e.clientX+"px";d.style.top=e.clientY+"px"});$$("a,button").forEach(x=>{x.onmouseenter=()=>{c.style.width="55px";c.style.height="55px"};x.onmouseleave=()=>{c.style.width="34px";c.style.height="34px"}})}
-// ==========================================
-// CLEAN .HTML FROM VISIBLE URL
-// Files do NOT need to be renamed or moved
-// ==========================================
-
-(function () {
-  const path = window.location.pathname;
-
-  // Homepage: /index.html -> /
-  if (path.endsWith("/index.html")) {
-    const cleanPath = path.replace(/index\.html$/, "");
-
-    window.history.replaceState(
-      null,
-      "",
-      cleanPath + window.location.search + window.location.hash
-    );
-
-    return;
-  }
-
-  // Case study pages:
-  // /jungle.html -> /jungle
-  // /tradie-trek.html -> /tradie-trek
-  // /ewura-pay.html -> /ewura-pay
-  if (path.endsWith(".html")) {
-    const cleanPath = path.replace(/\.html$/, "");
-
-    window.history.replaceState(
-      null,
-      "",
-      cleanPath + window.location.search + window.location.hash
-    );
-  }
-})();
