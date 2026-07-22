@@ -1,8 +1,58 @@
-<!doctype html><html lang="en" data-theme="light"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!doctype html>
+<html lang="en" data-theme="light">
+
+<head>
+
+<meta charset="utf-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1"
+>
+
 <title>Kaveesha Chaveed — Product Designer</title>
-<meta name="description" content="Portfolio of Kaveesha Chaveed, Product and UI/UX Designer.">
-<link rel="stylesheet" href="style.css"></head><body>
+
+<meta
+  name="description"
+  content="Portfolio of Kaveesha Chaveed, Product and UI/UX Designer."
+>
+
+<link rel="stylesheet" href="style.css">
+
+
+<!-- =========================================
+     CLEAN HOMEPAGE URL
+     Removes /index.html from browser URL
+========================================= -->
+
+<script>
+
+(function () {
+
+  const path = window.location.pathname;
+
+  if (path.endsWith("/index.html")) {
+
+    const cleanPath = path.replace(/index\.html$/, "");
+
+    window.history.replaceState(
+      null,
+      "",
+      cleanPath +
+      window.location.search +
+      window.location.hash
+    );
+
+  }
+
+})();
+
+</script>
+
+
+</head>
+
+<body>
 <div id="loader">
   <div class="loader-center">
     <div class="loader-logo-wrap">
